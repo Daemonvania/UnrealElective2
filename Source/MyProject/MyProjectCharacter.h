@@ -5,7 +5,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+
 #include "MyProjectCharacter.generated.h"
+
+
 
 class UInputComponent;
 class USkeletalMeshComponent;
@@ -29,6 +32,10 @@ class AMyProjectCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
 
+	/** Inventory Component */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class UInventoryComponent* Inventory;
+
 	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputMappingContext* DefaultMappingContext;
@@ -43,6 +50,9 @@ class AMyProjectCharacter : public ACharacter
 	
 public:
 	AMyProjectCharacter();
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Health") float Health;
+
+	UFUNCTION(BlueprintCallable, Category = "Items") void UseItem(class UItem* Item);
 
 protected:
 	virtual void BeginPlay();

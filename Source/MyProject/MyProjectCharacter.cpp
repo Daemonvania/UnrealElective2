@@ -10,6 +10,9 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
+#include "Item.h"
+#include "InventoryComponent.h"
+
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -39,6 +42,20 @@ AMyProjectCharacter::AMyProjectCharacter()
 	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
+	Inventory = CreateDefaultSubobject<UInventoryComponent>("Inventory");
+	Inventory->Capacity = 20;
+
+	Health = 10;
+
+
+}
+
+void AMyProjectCharacter::UseItem(UItem* Item)
+{
+	if (Item) {
+		Item->Use(this);
+		Item->OnUse(this);  //BP EVENT
+	}
 }
 
 void AMyProjectCharacter::BeginPlay()
