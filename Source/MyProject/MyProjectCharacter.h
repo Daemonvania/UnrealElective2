@@ -92,6 +92,14 @@ public:
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
-
+	UFUNCTION(BlueprintCallable) void Interact();
+private: 
+	
+	UFUNCTION() void InteractCheck();
+	FHitResult InteractResult;
+	FVector ViewVector;
+	FRotator ViewRotation;
+	void Tick(float DeltaTime);
 };
+
 

@@ -50,6 +50,10 @@ AMyProjectCharacter::AMyProjectCharacter()
 
 }
 
+void AMyProjectCharacter::Tick(float DeltaTime) {
+	InteractCheck();
+}
+
 void AMyProjectCharacter::UseItem(UItem* Item)
 {
 	if (Item) {
@@ -132,4 +136,19 @@ void AMyProjectCharacter::SetHasRifle(bool bNewHasRifle)
 bool AMyProjectCharacter::GetHasRifle()
 {
 	return bHasRifle;
+}
+
+void AMyProjectCharacter::InteractCheck() {
+	Cast<APlayerController>(GetController())->GetPlayerViewPoint(ViewVector, ViewRotation);
+	FVector VecDirection = ViewRotation.Vector() * 1000.f;
+	FVector InteractEnd = ViewVector * VecDirection;
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+	GetWorld()->LineTraceSingleByChannel(InteractResult, ViewVector, InteractEnd, ECollisionChannel::ECC_Pawn, QueryParams); 
+	//todo actual layer lol
+}
+
+void AMyProjectCharacter::Interact()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Interact!"));
 }
