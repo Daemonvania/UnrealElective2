@@ -100,6 +100,12 @@ private:
 	FVector ViewVector;
 	FRotator ViewRotation;
 	void Tick(float DeltaTime);
+
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UUserWidget> InteractWidgetClass;
+
+	UUserWidget* InteractWidget;
 };
 
 

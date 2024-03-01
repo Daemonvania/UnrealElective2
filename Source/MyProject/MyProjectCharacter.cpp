@@ -12,7 +12,8 @@
 #include "Engine/LocalPlayer.h"
 #include "Item.h"
 #include "InventoryComponent.h"
-
+#include "Interactable.h"
+#include "Blueprint/UserWidget.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -75,6 +76,10 @@ void AMyProjectCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+	
+	InteractWidget = CreateWidget(Cast<APlayerController>(GetController()), InteractWidgetClass);
+	InteractWidget->AddToViewport(0);
+	InteractWidget->SetVisibility(ESlateVisibility::Collapsed);
 
 }
 
@@ -141,14 +146,26 @@ bool AMyProjectCharacter::GetHasRifle()
 void AMyProjectCharacter::InteractCheck() {
 	Cast<APlayerController>(GetController())->GetPlayerViewPoint(ViewVector, ViewRotation);
 	FVector VecDirection = ViewRotation.Vector() * 1000.f;
-	FVector InteractEnd = ViewVector * VecDirection;
+	FVector InteractEnd = ViewVector + VecDirection.GetSafeNormal() * 1000.f;
 	FCollisionQueryParams QueryParams;
 	QueryParams.AddIgnoredActor(this);
 	GetWorld()->LineTraceSingleByChannel(InteractResult, ViewVector, InteractEnd, ECollisionChannel::ECC_Pawn, QueryParams); 
 	//todo actual layer lol
+
+	if (Cast<AInteractable>(InteractResult.GetActor())) {
+		InteractWidget->SetVisibility(ESlateVisibility::Visible);
+	}
+	else {
+		InteractWidget->SetVisibility(ESlateVisibility::Collapsed);
+	}
 }
+
+
 
 void AMyProjectCharacter::Interact()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Interact!"));
+	if (Cast<AInteractable>(InteractResult.GetActor())) 
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("PLEASE"));
+	};
 }
