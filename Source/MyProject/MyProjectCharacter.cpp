@@ -76,11 +76,17 @@ void AMyProjectCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-	
-	InteractWidget = CreateWidget(Cast<APlayerController>(GetController()), InteractWidgetClass);
-	InteractWidget->AddToViewport(0);
-	InteractWidget->SetVisibility(ESlateVisibility::Collapsed);
 
+	if (GetController())
+	{
+		//todo createWidget Is called with a null class
+		InteractWidget = CreateWidget(Cast<APlayerController>(GetController()), InteractWidgetClass);
+		if (InteractWidget)
+		{
+			InteractWidget->AddToViewport(0);
+			InteractWidget->SetVisibility(ESlateVisibility::Collapsed);
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
@@ -152,11 +158,14 @@ void AMyProjectCharacter::InteractCheck() {
 	GetWorld()->LineTraceSingleByChannel(InteractResult, ViewVector, InteractEnd, ECollisionChannel::ECC_Pawn, QueryParams); 
 	//todo actual layer lol
 
-	if (Cast<AInteractable>(InteractResult.GetActor())) {
-		InteractWidget->SetVisibility(ESlateVisibility::Visible);
-	}
-	else {
-		InteractWidget->SetVisibility(ESlateVisibility::Collapsed);
+	if (InteractWidget)
+	{
+		if (Cast<AInteractable>(InteractResult.GetActor())) {
+			InteractWidget->SetVisibility(ESlateVisibility::Visible);
+		}
+		else {
+			InteractWidget->SetVisibility(ESlateVisibility::Collapsed);
+		}
 	}
 }
 

@@ -9,3 +9,8 @@ UItem::UItem()
 	ItemDisplayName = FText::FromString("Pizza");
 	UseActionText = FText::FromString("Eat");
 }
+
+void UItem::Use(AMyProjectCharacter* Character)
+{
+
+}
