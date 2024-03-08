@@ -5,7 +5,7 @@
 #include "InventoryComponent.h"
 #include "MyProjectCharacter.h"
 
-void AItemPickup::OnInteract(AMyProjectCharacter* Character)
+void AItemPickup::Interact(AMyProjectCharacter* Character)
 {
     if (Character)
     {

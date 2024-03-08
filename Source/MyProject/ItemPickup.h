@@ -17,7 +17,7 @@ class MYPROJECT_API AItemPickup : public AInteractable
 
 	UPROPERTY(EditDefaultsOnly, Instanced) class UItem* ItemToGive;
 
-	virtual void OnInteract(AMyProjectCharacter* Character) override;
+	virtual void Interact(AMyProjectCharacter* Character) override;
 	//TODO make this wpork w blueprint like uproperty blueprintcallable
 	
 };

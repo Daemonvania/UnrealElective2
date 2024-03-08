@@ -180,7 +180,7 @@ void AMyProjectCharacter::Interact()
 	if (Cast<AInteractable>(InteractResult.GetActor()))
 	{
 		AInteractable* InteractableActor = Cast<AInteractable>(InteractResult.GetActor());
-		InteractableActor->OnInteract(this);
+		InteractableActor->Interact(this);
 
 	};
 }

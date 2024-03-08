@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Interactable.h"
+#include <Components/TimelineComponent.h>
 #include "Door.generated.h"
+
 
 /**
  * 
@@ -20,7 +22,20 @@ public:
 
 protected: 
 	virtual void BeginPlay() override;
-	virtual void OnInteract(AMyProjectCharacter* Character) override;
+		virtual void Interact(AMyProjectCharacter* Character) override;
+
+
+		FTimeline Timeline;
+		UPROPERTY(EditAnywhere)
+		UCurveFloat* CurveFloat;
+
+		bool bIsDoorClosed = true;
+
+		float DoorRotateAngle = 90.f;
+
+		UFUNCTION() 
+		void OpenDoor(float Value);
+
 
 private: 
 	UPROPERTY(VisibleAnywhere, Category = "Mesh")

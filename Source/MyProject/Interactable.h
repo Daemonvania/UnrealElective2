@@ -15,7 +15,7 @@ class MYPROJECT_API AInteractable : public AStaticMeshActor
 	GENERATED_BODY()
 	
 public: 
-	virtual void OnInteract(class AMyProjectCharacter* Character);
+	virtual void Interact(class AMyProjectCharacter* Character);
 
-
+	UFUNCTION(BlueprintImplementableEvent) void OnInteract(class AMyProjectCharacter* Character);
 };
