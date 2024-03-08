@@ -3,3 +3,7 @@
 
 #include "Interactable.h"
 
+void AInteractable::OnInteract(AMyProjectCharacter* Character)
+{
+
+}

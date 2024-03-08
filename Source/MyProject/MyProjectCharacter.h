@@ -93,6 +93,8 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 	UFUNCTION(BlueprintCallable) void Interact();
+
+	UInventoryComponent* GetInventoryComponent() const;
 private: 
 	
 	UFUNCTION() void InteractCheck();

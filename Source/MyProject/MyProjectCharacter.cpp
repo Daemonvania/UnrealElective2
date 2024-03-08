@@ -53,6 +53,8 @@ AMyProjectCharacter::AMyProjectCharacter()
 
 void AMyProjectCharacter::Tick(float DeltaTime) {
 	InteractCheck();
+	FString HealthString = FString::Printf(TEXT("Health: %f"), Health);
+	GEngine->AddOnScreenDebugMessage(-1, 0.f, FColor::Yellow, HealthString);
 }
 
 void AMyProjectCharacter::UseItem(UItem* Item)
@@ -173,8 +175,17 @@ void AMyProjectCharacter::InteractCheck() {
 
 void AMyProjectCharacter::Interact()
 {
-	if (Cast<AInteractable>(InteractResult.GetActor())) 
+
+	
+	if (Cast<AInteractable>(InteractResult.GetActor()))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("PLEASE"));
+		AInteractable* InteractableActor = Cast<AInteractable>(InteractResult.GetActor());
+		InteractableActor->OnInteract(this);
+
 	};
+}
+
+UInventoryComponent* AMyProjectCharacter::GetInventoryComponent() const
+{
+	return Inventory;
 }
