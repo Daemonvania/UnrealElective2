@@ -25,7 +25,7 @@ void UInventoryComponent::BeginPlay()
 	{
 		AddItem(Item);
 	}
-	
+
 }
 
 bool UInventoryComponent::AddItem(UItem* Item)
@@ -43,14 +43,14 @@ bool UInventoryComponent::AddItem(UItem* Item)
 
 bool UInventoryComponent::RemoveItem(UItem* Item)
 {
-	if (Item) {
-		Item->OwningInventory = nullptr;
-		Item->World = nullptr;
-		Items.RemoveSingle(Item);
-		OnInventoryUpdated.Broadcast();
+	if (Item == NULL)
 		return false;
-	}
-	else return false;
+
+	Item->OwningInventory = nullptr;
+	Item->World = nullptr;
+	Items.RemoveSingle(Item);
+	OnInventoryUpdated.Broadcast();
+	return true;
 }
 
 

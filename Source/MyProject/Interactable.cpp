@@ -7,3 +7,7 @@ void AInteractable::Interact(AMyProjectCharacter* Character)
 {
 	OnInteract(Character);
 }
+
+void AInteractable::Tick(float DeltaTime)
+{
+}

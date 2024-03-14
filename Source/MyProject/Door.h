@@ -17,15 +17,18 @@ class MYPROJECT_API ADoor : public AInteractable
 	GENERATED_BODY()
 	
 public:
-	virtual void Tick(float DeltaTime);
+
 	ADoor();
 
 protected: 
 	virtual void BeginPlay() override;
+
+
 		virtual void Interact(AMyProjectCharacter* Character) override;
 
 
 		FTimeline Timeline;
+
 		UPROPERTY(EditAnywhere)
 		UCurveFloat* CurveFloat;
 
@@ -42,4 +45,8 @@ private:
 	class UStaticMeshComponent* DoorFrame;
 	UPROPERTY(VisibleAnywhere, Category = "Mesh")
 	UStaticMeshComponent* Door;
+
+
+	void Tick(float DeltaTime);
+
 };

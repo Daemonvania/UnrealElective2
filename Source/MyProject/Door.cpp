@@ -4,13 +4,8 @@
 #include "Door.h"
 #include "Interactable.h"
 
-void ADoor::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-	Timeline.TickTimeline(DeltaTime);
-}
-
 ADoor::ADoor() {
+
 	DoorFrame = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DoorFrame"));
 	DoorFrame->SetupAttachment(RootComponent);
 
@@ -18,6 +13,7 @@ ADoor::ADoor() {
 	Door->SetupAttachment(DoorFrame);
 
 	if (CurveFloat) {
+		Timeline.SetTimelineLength(5.0f);
 		FOnTimelineFloat TimelineProgress;
 		TimelineProgress.BindDynamic(this, &ADoor::OpenDoor);
 		Timeline.AddInterpFloat(CurveFloat, TimelineProgress);
@@ -28,9 +24,25 @@ void ADoor::BeginPlay()
 {
 }
 
+
+void ADoor::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Yellow, "lol");
+
+	Timeline.TickTimeline(DeltaTime);
+}
+
+
 void ADoor::Interact(AMyProjectCharacter* Character)
 {
-	
+		GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Yellow, "lol");
+
+
+	if (CurveFloat) {
+	}
+
 	if (bIsDoorClosed) {
 		Timeline.Play();
 	}
@@ -43,9 +55,9 @@ void ADoor::Interact(AMyProjectCharacter* Character)
 
 void ADoor::OpenDoor(float Value)
 {
+	GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Yellow, "lol");
+
 	FRotator Rot = FRotator(0.f, DoorRotateAngle * Value, 0.f);
 
 	Door->SetRelativeRotation(Rot);
-
-	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, "M<AAAN");
 }

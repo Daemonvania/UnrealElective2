@@ -17,5 +17,9 @@ class MYPROJECT_API AInteractable : public AStaticMeshActor
 public: 
 	virtual void Interact(class AMyProjectCharacter* Character);
 
+
+	void Tick(float DeltaTime);
+
 	UFUNCTION(BlueprintImplementableEvent) void OnInteract(class AMyProjectCharacter* Character);
 };
+
