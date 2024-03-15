@@ -20,8 +20,8 @@ public:
 
 	virtual void BeginPlay() override;
 
-	bool AddItem(class UItem* Item);
-	bool RemoveItem(class UItem* Item);
+	UFUNCTION(BlueprintCallable) bool AddItem(class UItem* Item);
+	UFUNCTION(BlueprintCallable) bool RemoveItem(class UItem* Item);
 
 	UPROPERTY(EditDefaultsOnly, Instanced) TArray<class UItem*> DefaultItems;
 
